@@ -8,6 +8,7 @@
 <meta name="description" content="20 retos en 4 semanas basados en Enfócate, de Cal Newport. Alejandro Valencia Coach.">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Reto Enfócate</title>
+<script>function noLogo(img){var s=document.createElement("span");s.className="partner-name";s.textContent=img.alt;img.replaceWith(s);}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@700&display=swap">
@@ -85,6 +86,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .club-by { font-size: 14px; color: var(--muted); font-weight: 400; }
 footer .club { justify-content: center; }
 footer .club-text { justify-items: start; text-align: left; }
+.partners { display: flex; align-items: center; gap: 14px; }
+.partner-logo { height: 64px; width: auto; max-width: 140px; object-fit: contain; }
+.partner-x { color: var(--gold); font-size: 20px; line-height: 1; }
+.partner-name { font-family: var(--display); font-weight: 700; font-size: 17px; color: var(--sand); }
+footer .partners { justify-content: center; }
 /* Hero */
 .hero { padding-block: 40px 28px; display: grid; gap: 22px; }
 .brand { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); font-weight: 400; }
@@ -439,6 +445,7 @@ footer { padding-block: 36px 48px; text-align: center; display: grid; gap: 8px; 
 <div id="app" hidden>
 <div class="wrap">
   <header class="hero">
+    <div class="partners"><img class="partner-logo" src="/alejandro-logo.png" alt="Alejandro Valencia"><span class="partner-x" aria-hidden="true">×</span><img class="partner-logo" src="/ivan-logo.png" alt="Iván Molano" onerror="noLogo(this)"></div>
     <div class="club"><img class="club-logo" src="/club-logo.png" alt="" onerror="this.remove()"><div class="club-text"><span class="club-name">Club de Lectura Que Chimba Crecer</span><span class="club-by">por Alejandro Valencia e Iván Molano</span></div></div>
     <div class="hero-main">
       <div>
@@ -504,6 +511,7 @@ footer { padding-block: 36px 48px; text-align: center; display: grid; gap: 8px; 
 </div>
 
 <footer class="wrap">
+  <div class="partners"><img class="partner-logo" src="/alejandro-logo.png" alt="Alejandro Valencia"><span class="partner-x" aria-hidden="true">×</span><img class="partner-logo" src="/ivan-logo.png" alt="Iván Molano" onerror="noLogo(this)"></div>
   <div class="club"><img class="club-logo" src="/club-logo.png" alt="" onerror="this.remove()"><div class="club-text"><span class="club-name">Club de Lectura Que Chimba Crecer</span><span class="club-by">por Alejandro Valencia e Iván Molano</span></div></div>
   <p class="credit">Alejandro Valencia Coach · alejandrovalenciacorp.com</p>
 </footer>
@@ -831,7 +839,7 @@ footer { padding-block: 36px 48px; text-align: center; display: grid; gap: 8px; 
   function renderIntake(focusFirst) {
     var I = state.intake, n = Math.min(Math.max(I.step, 0), STEPS.length - 1), st = STEPS[n], html = "";
     if (st.kind === "welcome") {
-      html = '<div class="club"><img class="club-logo" src="/club-logo.png" alt="" onerror="this.remove()"><div class="club-text"><span class="club-name">Club de Lectura Que Chimba Crecer</span><span class="club-by">por Alejandro Valencia e Iván Molano</span></div></div>' +
+      html = '<div class="partners"><img class="partner-logo" src="/alejandro-logo.png" alt="Alejandro Valencia"><span class="partner-x" aria-hidden="true">×</span><img class="partner-logo" src="/ivan-logo.png" alt="Iván Molano" onerror="noLogo(this)"></div><div class="club"><img class="club-logo" src="/club-logo.png" alt="" onerror="this.remove()"><div class="club-text"><span class="club-name">Club de Lectura Que Chimba Crecer</span><span class="club-by">por Alejandro Valencia e Iván Molano</span></div></div>' +
         '<div class="q"><h1 class="welcome-title" tabindex="-1" id="qTitle">Enfócate</h1>' +
         '<p class="hero-lead">Durante <strong>4 semanas</strong> vas a hacer 20 retos basados en el libro de Cal Newport para recuperar tu capacidad de concentrarte en lo importante.</p>' +
         '<p class="q-help">Antes de empezar, cuéntame un poco de ti:</p>' +
