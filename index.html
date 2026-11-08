@@ -76,7 +76,15 @@ h1, h2, h3 { font-family: var(--display); font-weight: 700; text-wrap: balance; 
 p { margin: 0; }
 button { font: inherit; color: inherit; cursor: pointer; }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+[tabindex="-1"]:focus { outline: none; }
 
+.club { display: flex; align-items: center; gap: 12px; }
+.club-logo { height: 52px; width: auto; max-width: 140px; object-fit: contain; flex: none; }
+.club-text { display: grid; gap: 2px; min-width: 0; }
+.club-name { font-family: var(--display); font-weight: 700; font-size: 18px; line-height: 1.2; color: var(--sand); }
+.club-by { font-size: 14px; color: var(--muted); font-weight: 400; }
+footer .club { justify-content: center; }
+footer .club-text { justify-items: start; text-align: left; }
 /* Hero */
 .hero { padding-block: 40px 28px; display: grid; gap: 22px; }
 .brand { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); font-weight: 400; }
@@ -431,7 +439,7 @@ footer { padding-block: 36px 48px; text-align: center; display: grid; gap: 8px; 
 <div id="app" hidden>
 <div class="wrap">
   <header class="hero">
-    <div class="brand"><span class="brand-mark" aria-hidden="true">AV</span><span>Alejandro Valencia Coach</span></div>
+    <div class="club"><img class="club-logo" src="/club-logo.png" alt="" onerror="this.remove()"><div class="club-text"><span class="club-name">Club Qué Chimba Crecer</span><span class="club-by">por Alejandro Valencia e Iván Molano</span></div></div>
     <div class="hero-main">
       <div>
         <h1>Enfócate<span class="line" aria-hidden="true"></span></h1>
@@ -497,6 +505,7 @@ footer { padding-block: 36px 48px; text-align: center; display: grid; gap: 8px; 
 
 <footer class="wrap">
   <p class="slogan">No limites tus desafíos, desafía tus límites.</p>
+  <div class="club"><img class="club-logo" src="/club-logo.png" alt="" onerror="this.remove()"><div class="club-text"><span class="club-name">Club Qué Chimba Crecer</span><span class="club-by">por Alejandro Valencia e Iván Molano</span></div></div>
   <p class="credit">Alejandro Valencia Coach · alejandrovalenciacorp.com</p>
 </footer>
 
@@ -823,7 +832,7 @@ footer { padding-block: 36px 48px; text-align: center; display: grid; gap: 8px; 
   function renderIntake(focusFirst) {
     var I = state.intake, n = Math.min(Math.max(I.step, 0), STEPS.length - 1), st = STEPS[n], html = "";
     if (st.kind === "welcome") {
-      html = '<div class="brand"><span class="brand-mark" aria-hidden="true">AV</span><span>Alejandro Valencia Coach</span></div>' +
+      html = '<div class="club"><img class="club-logo" src="/club-logo.png" alt="" onerror="this.remove()"><div class="club-text"><span class="club-name">Club Qué Chimba Crecer</span><span class="club-by">por Alejandro Valencia e Iván Molano</span></div></div>' +
         '<div class="q"><h1 class="welcome-title" tabindex="-1" id="qTitle">Enfócate</h1>' +
         '<p class="hero-lead">Durante <strong>4 semanas</strong> vas a hacer 20 retos basados en el libro de Cal Newport para recuperar tu capacidad de concentrarte en lo importante.</p>' +
         '<p class="q-help">Antes de empezar, cuéntame un poco de ti:</p>' +
@@ -839,7 +848,7 @@ footer { padding-block: 36px 48px; text-align: center; display: grid; gap: 8px; 
         '<p class="q-error" id="qError" role="alert"></p>' +
         '<div class="q-nav"><button class="btn btn-gold" type="button" data-next>Empezar</button></div>';
     } else {
-      html = '<div class="intake-top"><div class="brand"><span class="brand-mark" aria-hidden="true">AV</span><span>Alejandro Valencia Coach</span></div>' +
+      html = '<div class="intake-top"><div class="club"><img class="club-logo" src="/club-logo.png" alt="" onerror="this.remove()"><div class="club-text"><span class="club-name">Club Qué Chimba Crecer</span><span class="club-by">por Alejandro Valencia e Iván Molano</span></div></div>' +
         '<div class="intake-progress"><span>Pregunta ' + n + ' de ' + QCOUNT + '</span><div class="meter" aria-hidden="true"><i style="width:' + (n / QCOUNT * 100) + '%"></i></div></div></div>' +
         '<div class="q"><h1 class="q-title" tabindex="-1" id="qTitle">' + st.title + '</h1>' + (st.help ? '<p class="q-help">' + st.help + '</p>' : "");
       if (st.fields) {
