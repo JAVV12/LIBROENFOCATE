@@ -1,0 +1,1198 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b1e3d">
+<meta name="description" content="20 retos en 4 semanas basados en Enfócate, de Cal Newport. Alejandro Valencia Coach.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Reto Enfócate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@700&display=swap">
+<style>
+/* Layout: una columna móvil-primero; hero con anillo de progreso, pestañas de semana fijas, retos en acordeón, marcador semanal. Tema único navy (marca AVC). */
+:root {
+  --navy-edge: #08172f;
+  --navy: #0b1e3d;
+  --navy-center: #1a3866;
+  --navy-raised: #15305a;
+  --navy-glass: rgba(11, 30, 61, 0.9);
+  --navy-field: rgba(8, 23, 47, 0.55);
+  --navy-line: rgba(212, 175, 55, 0.22);
+  --gold: #d4af37;
+  --gold-soft: #e8cf7a;
+  --sand: #ffffff;
+  --muted: #a8b3c3;
+  --field-bg: #ffffff;
+  --ink: #111111;
+  --ink-soft: #6b7280;
+  --card: #ffffff;
+  --card-title: #163a73;
+  --card-gold: #8a6a12;
+  --card-muted: #5b6472;
+  --card-line: #eadfbf;
+  --card-field-border: #cfd4dc;
+  --on-gold: #0b1e3d;
+  --display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --body: "Lato", "Helvetica Neue", Arial, sans-serif;
+  --radius-sm: 10px;
+  --radius-lg: 18px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.input { scroll-margin-top: 110px; scroll-margin-bottom: 24px; }
+.reto textarea.input { scroll-margin-top: 200px; }
+.score .input { scroll-margin-top: 150px; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background-color: var(--navy);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(245, 245, 220, 0.03) 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(-45deg, rgba(245, 245, 220, 0.03) 0 1px, transparent 1px 16px),
+    radial-gradient(ellipse 90% 75% at 50% 35%, var(--navy-center) 0%, var(--navy) 55%, var(--navy-edge) 100%);
+  background-attachment: fixed;
+  color: var(--sand);
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.6;
+  min-height: 100vh;
+  margin: 0;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px); z-index: 10;
+  background: var(--navy);
+}
+.wrap {
+  max-width: 680px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--display); font-weight: 700; text-wrap: balance; margin: 0; line-height: 1.15; }
+p { margin: 0; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+
+/* Hero */
+.hero { padding-block: 40px 28px; display: grid; gap: 22px; }
+.brand { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); font-weight: 400; }
+.brand-mark {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1px solid var(--gold); color: var(--gold);
+  font-family: var(--display); font-size: 13px; letter-spacing: 0.04em;
+}
+.hero-main { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; }
+.hero h1 { font-size: clamp(44px, 12vw, 72px); color: var(--sand); letter-spacing: -0.01em; }
+.hero h1 .line { display: block; width: 64px; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); margin-top: 14px; }
+.hero-lead { max-width: 52ch; color: var(--sand); opacity: 0.9; }
+.hero-lead strong { font-weight: 700; color: var(--gold-soft); }
+
+.ring { position: relative; width: 112px; height: 112px; flex: none; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring .track { stroke: rgba(245, 245, 220, 0.12); }
+.ring .bar { stroke: var(--gold); transition: stroke-dashoffset 0.6s ease; }
+.ring-label { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+.ring-num { font-family: var(--display); font-size: 30px; line-height: 1; color: var(--sand); font-variant-numeric: tabular-nums; }
+.ring-sub { font-size: 12px; color: var(--muted); font-weight: 400; margin-top: 4px; }
+
+.hello { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; }
+.hello-name { flex-basis: 100%; }
+.guide-btn { display: inline-flex; align-items: center; gap: 8px; }
+.guide-btn svg { width: 18px; height: 18px; }
+.goal-help { font-size: 14px; color: var(--card-muted); line-height: 1.5; }
+.guide-card { gap: 12px; text-align: left; justify-items: stretch; padding-top: 22px; }
+.guide-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.guide-dots { display: flex; gap: 6px; }
+.guide-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--card-line); }
+.guide-dots i.on { background: var(--gold); }
+.guide-count { font-size: 13px; color: var(--card-muted); font-variant-numeric: tabular-nums; }
+.guide-num { font-family: var(--display); font-size: 44px; line-height: 1; color: var(--gold); text-shadow: 0 3px 4px rgba(11, 30, 61, 0.35), 0 1px 0 rgba(138, 106, 18, 0.6); }
+.guide-card .cheer-title { text-align: left; }
+.guide-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.guide-list li { display: grid; gap: 2px; padding-left: 14px; border-left: 2px solid var(--gold); }
+.guide-list b { color: var(--card-title); font-weight: 700; }
+.guide-list span { color: var(--ink); font-size: 16px; line-height: 1.5; }
+.guide-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 6px; }
+.guide-nav .btn { min-width: 0; margin-top: 0; }
+.guide-nav .btn-quiet { color: var(--card-muted); }
+.cheer-card.still { animation: none; }
+.cheer-card.guide-card { text-align: left; justify-items: stretch; }
+.cheer-card.guide-card > * { min-width: 0; }
+.guide-list li, .guide-list b, .guide-list span { min-width: 0; overflow-wrap: anywhere; }
+.guide-top { width: 100%; }
+.cheer-card .guide-nav { width: 100%; }
+.cheer-card .guide-nav .btn { min-width: 0; margin-top: 0; }
+.cheer-card .guide-nav .btn-gold { flex: 0 1 auto; padding: 0 20px; }
+.cheer-card.guide-card { max-height: calc(100vh - 32px); overflow-y: auto; }
+.hello-name { font-family: var(--display); font-size: 20px; color: var(--sand); }
+.link-btn { background: none; border: 0; padding: 6px 0; color: var(--gold); font-weight: 400; font-size: 15px; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(212, 175, 55, 0.5); }
+.link-btn:hover { text-decoration-color: var(--gold); }
+
+/* Cuestionario inicial */
+.intake { padding-block: 32px 40px; display: grid; gap: 26px; min-height: 80vh; align-content: start; }
+.intake-top { display: grid; gap: 14px; }
+.intake-progress { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--muted); font-weight: 400; font-variant-numeric: tabular-nums; }
+.intake-progress .meter { flex: 1; height: 4px; }
+.q { display: grid; gap: 18px; }
+.q-title { font-size: clamp(26px, 7vw, 34px); color: var(--sand); }
+.q-help { color: var(--muted); max-width: 52ch; }
+.welcome-title { font-size: clamp(40px, 11vw, 60px); }
+.consent { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; padding: 14px 16px; background: var(--card); border: 1.5px solid var(--gold); border-radius: 14px; color: var(--ink); font-size: 15px; line-height: 1.5; font-weight: 400; cursor: pointer; }
+.consent input { width: 22px; height: 22px; margin: 2px 0 0; accent-color: #b8932a; cursor: pointer; }
+.consent-more { background: var(--card); border: 1.5px solid var(--gold); border-radius: 14px; color: var(--ink); font-size: 14px; line-height: 1.55; }
+.consent-more summary { cursor: pointer; padding: 12px 16px; font-weight: 700; color: var(--card-title); }
+.consent-more div { padding: 0 16px 14px; display: grid; gap: 8px; }
+.consent-more b { color: var(--card-title); }
+.welcome-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.welcome-list li { display: flex; gap: 12px; align-items: baseline; }
+.welcome-list li::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); transform: translateY(-2px); }
+.field { display: grid; gap: 6px; }
+.field { gap: 8px; }
+.field label { font-size: 15px; color: var(--gold); font-weight: 700; }
+.options { display: grid; gap: 10px; }
+.opt {
+  display: flex; align-items: center; gap: 14px; text-align: left; width: 100%;
+  min-height: 56px; padding: 12px 16px; border-radius: 14px;
+  background: rgba(26, 56, 102, 0.4); border: 1px solid var(--navy-line);
+  font-size: 16px; font-weight: 400; color: var(--sand);
+  transition: border-color 0.2s, background 0.2s, transform 0.12s;
+}
+.opt:hover { border-color: rgba(212, 175, 55, 0.5); }
+.opt:active { transform: scale(0.99); }
+.opt-mark { flex: none; width: 22px; height: 22px; border: 1.5px solid rgba(212, 175, 55, 0.6); display: grid; place-items: center; color: var(--on-gold); transition: background 0.2s; }
+.opt[role="radio"] .opt-mark { border-radius: 50%; }
+.opt[role="checkbox"] .opt-mark { border-radius: 6px; }
+.opt-mark svg { width: 14px; height: 14px; opacity: 0; }
+.opt[aria-checked="true"] { border-color: var(--gold); background: rgba(212, 175, 55, 0.12); }
+.opt[aria-checked="true"] .opt-mark { background: var(--gold); border-color: var(--gold); }
+.opt[aria-checked="true"] .opt-mark svg { opacity: 1; }
+.q-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.q-error { color: var(--gold-soft); font-size: 14px; font-weight: 400; min-height: 1.3em; }
+.btn[disabled] { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+.input {
+  width: 100%; background: var(--field-bg); color: var(--ink); color-scheme: light;
+  border: 1.5px solid transparent; border-radius: var(--radius-sm);
+  padding: 13px 14px; font: inherit; font-weight: 400; font-size: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.input::placeholder { color: var(--ink-soft); }
+.input:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.3); }
+
+/* Pestañas de semana */
+.tabs-bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--navy-glass);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-block: 1px solid var(--navy-line);
+}
+.tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; padding-block: 10px; }
+.tab {
+  background: transparent; border: 1px solid transparent; border-radius: 12px;
+  padding: 8px 4px; display: grid; gap: 2px; justify-items: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+.tab-name { font-size: 14px; font-weight: 700; color: var(--muted); }
+.tab-count { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tab-dots { display: flex; gap: 3px; margin-top: 3px; }
+.tab-dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(245, 245, 220, 0.16); }
+.tab-dots i.on { background: var(--gold); }
+.tab[aria-selected="true"] { background: var(--navy-raised); border-color: var(--navy-line); }
+.tab[aria-selected="true"] .tab-name { color: var(--gold); }
+.tab:hover .tab-name { color: var(--sand); }
+
+/* Semana */
+.week { padding-block: 28px 8px; display: grid; gap: 20px; }
+.week-head { display: grid; gap: 8px; }
+.week-kicker { font-size: 14px; color: var(--gold); font-weight: 700; }
+.week-head h2 { font-size: clamp(28px, 7vw, 36px); }
+.week-head p { color: var(--muted); max-width: 52ch; }
+
+.list { display: grid; gap: 10px; list-style: none; margin: 0; padding: 0; }
+.reto {
+  border: 1px solid var(--navy-line); border-radius: var(--radius-lg);
+  background: linear-gradient(160deg, rgba(26, 56, 102, 0.55), rgba(21, 48, 90, 0.35));
+  overflow: hidden; transition: border-color 0.25s;
+}
+.reto.open { border-color: rgba(212, 175, 55, 0.55); }
+.reto-head {
+  width: 100%; background: none; border: 0; text-align: left;
+  display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center;
+  padding: 16px 16px;
+}
+.reto-num {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  font-family: var(--display); font-size: 16px; color: var(--gold);
+  font-variant-numeric: tabular-nums; transition: background 0.25s, color 0.25s;
+}
+.reto.done .reto-num { background: var(--gold); color: var(--on-gold); border-color: var(--gold); }
+.reto-title { min-width: 0; display: grid; gap: 2px; }
+.reto-name { font-family: var(--display); font-weight: 700; font-size: 19px; line-height: 1.2; color: var(--sand); }
+.reto-status { font-size: 13px; color: var(--muted); font-weight: 400; }
+.reto.done .reto-status { color: var(--gold-soft); }
+.reto.next:not(.done) .reto-status { color: var(--gold-soft); }
+.chev { width: 22px; height: 22px; color: var(--muted); transition: transform 0.25s; }
+.reto.open .chev { transform: rotate(180deg); color: var(--gold); }
+
+.reto-body { padding: 0 16px 18px; display: grid; gap: 18px; }
+.reto-body[hidden] { display: none; }
+.idea { color: var(--sand); opacity: 0.92; padding-left: 14px; border-left: 2px solid rgba(212, 175, 55, 0.6); }
+.steps { display: grid; gap: 12px; }
+.step { display: grid; gap: 4px; }
+.step-label { font-size: 14px; font-weight: 700; color: var(--gold-soft); }
+.step p { color: var(--sand); }
+.reflect { display: grid; gap: 8px; padding-top: 16px; border-top: 1px solid var(--navy-line); }
+.reflect label { font-family: var(--display); font-size: 18px; color: var(--sand); line-height: 1.35; }
+textarea.input { min-height: 96px; resize: vertical; line-height: 1.5; }
+.saved { font-size: 13px; color: var(--gold-soft); font-weight: 400; min-height: 1.2em; }
+
+/* Botones */
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 46px; padding: 0 22px; border-radius: 999px;
+  font-weight: 700; font-size: 15px; letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  transition: transform 0.12s ease, background 0.2s, box-shadow 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn:active { transform: scale(0.97); }
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold) 55%, #b8932a);
+  color: var(--on-gold);
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.btn-gold:hover { box-shadow: 0 8px 24px rgba(212, 175, 55, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.35); }
+.btn-ghost { background: transparent; color: var(--gold); border-color: rgba(212, 175, 55, 0.55); }
+.btn-ghost:hover { background: rgba(212, 175, 55, 0.1); }
+.btn-quiet { background: transparent; color: var(--muted); padding: 0 12px; font-weight: 400; }
+.btn-quiet:hover { color: var(--sand); }
+.btn svg { width: 18px; height: 18px; }
+
+/* Marcador */
+.score {
+  margin-block: 28px 8px; padding: 22px 18px; border-radius: var(--radius-lg);
+  border: 1px solid var(--navy-line);
+  background: radial-gradient(120% 120% at 100% 0%, rgba(212, 175, 55, 0.1), transparent 55%), rgba(21, 48, 90, 0.45);
+  display: grid; gap: 16px;
+}
+.score-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 10px; }
+.score-head h2 { font-size: 24px; }
+.score-head p { color: var(--muted); font-size: 15px; max-width: 46ch; }
+.days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.day { display: grid; gap: 6px; justify-items: center; }
+.day label { font-size: 13px; color: var(--gold); font-weight: 700; }
+.day .input { text-align: center; padding: 10px 2px; font-variant-numeric: tabular-nums; -moz-appearance: textfield; }
+.day .input::-webkit-outer-spin-button, .day .input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.score-total { display: grid; gap: 8px; }
+.score-line { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-variant-numeric: tabular-nums; }
+.score-line strong { font-family: var(--display); font-size: 28px; color: var(--sand); }
+.score-line span { color: var(--muted); font-size: 14px; }
+.meter { height: 8px; border-radius: 999px; background: rgba(245, 245, 220, 0.1); overflow: hidden; }
+.meter i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, #b8932a, var(--gold), var(--gold-soft)); transition: width 0.5s ease; }
+.goal { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--gold); font-weight: 700; }
+.goal .input { width: 76px; padding: 8px 10px; text-align: center; font-variant-numeric: tabular-nums; }
+
+/* Compartir */
+.share { padding-block: 28px 12px; display: grid; gap: 14px; }
+.share h2 { font-size: 24px; }
+.share p { color: var(--muted); max-width: 52ch; }
+#copyFallback { min-height: 160px; font-size: 14px; }
+.confirm {
+  border: 1px solid rgba(212, 175, 55, 0.4); border-radius: var(--radius-sm);
+  padding: 14px; display: grid; gap: 10px; background: var(--navy-field);
+}
+
+footer { padding-block: 36px 48px; text-align: center; display: grid; gap: 8px; border-top: 1px solid var(--navy-line); margin-top: 24px; }
+.slogan { font-family: var(--display); font-size: 19px; color: var(--gold-soft); text-wrap: balance; }
+.credit { font-size: 13px; color: var(--muted); font-weight: 400; }
+
+.cheer {
+  position: fixed; inset: 0; z-index: 30; display: grid; place-items: center;
+  padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  background: rgba(8, 23, 47, 0.72); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  animation: cheerFade 0.25s ease both;
+}
+.cheer-card {
+  position: relative; width: min(420px, 100%); background: var(--card); color: var(--ink);
+  border: 1.5px solid var(--gold); border-radius: 22px; padding: 30px 24px 22px;
+  display: grid; gap: 14px; justify-items: center; text-align: center;
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.25), 0 24px 60px rgba(0, 0, 0, 0.45);
+  animation: cheerPop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.25) both;
+}
+.cheer-big { font-family: var(--display); font-size: 64px; line-height: 1; color: var(--gold); text-shadow: 0 3px 4px rgba(11, 30, 61, 0.35), 0 1px 0 rgba(138, 106, 18, 0.6); font-variant-numeric: tabular-nums; }
+.cheer-big svg { width: 60px; height: 60px; filter: drop-shadow(0 3px 3px rgba(11, 30, 61, 0.35)); }
+.cheer-kicker { font-size: 14px; font-weight: 700; color: var(--card-gold); }
+.cheer-title { font-family: var(--display); font-size: 26px; color: var(--card-title); text-wrap: balance; }
+.cheer-msg { font-size: 18px; line-height: 1.5; color: var(--ink); max-width: 32ch; text-wrap: pretty; }
+.cheer-quote { font-family: var(--display); font-size: 22px; line-height: 1.35; color: var(--card-title); max-width: 30ch; text-wrap: balance; padding-block: 6px; border-block: 1px solid var(--card-line); }
+.cheer-src { font-size: 13px; color: var(--card-muted); }
+.cheer-card .btn { margin-top: 6px; min-width: 180px; }
+.spark { position: absolute; left: 50%; top: 64px; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); pointer-events: none; animation: spark 0.9s ease-out forwards; }
+@keyframes cheerFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cheerPop { from { opacity: 0; transform: scale(0.85) translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes spark { from { transform: translate(-50%, -50%) scale(1); opacity: 1; } to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.3); opacity: 0; } }
+
+.tour { position: fixed; inset: 0; z-index: 40; }
+.tour-block { position: absolute; inset: 0; }
+.tour-spot {
+  position: fixed; border-radius: 16px; pointer-events: none;
+  box-shadow: 0 0 0 2px var(--gold), 0 0 0 9999px rgba(3, 10, 24, 0.78);
+  transition: top 0.3s ease, left 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+.tour-tip {
+  position: fixed; left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px));
+  max-width: 440px; margin-inline: auto;
+  background: var(--card); color: var(--ink); border: 1.5px solid var(--gold); border-radius: 18px;
+  padding: 16px 18px; display: grid; gap: 8px; box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+  transition: top 0.3s ease;
+}
+.tour-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.tour-count { font-size: 13px; font-weight: 700; color: var(--card-gold); font-variant-numeric: tabular-nums; }
+.tour-skip { background: none; border: 0; padding: 4px 0; font-size: 14px; color: var(--card-muted); text-decoration: underline; text-underline-offset: 3px; }
+.tour-title { font-size: 21px; color: var(--card-title); }
+.tour-text { font-size: 16px; line-height: 1.5; color: var(--ink); }
+.tour-nav { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 4px; }
+.tour-nav .btn-quiet { color: var(--card-muted); }
+.tour-nav .btn-gold { margin-left: auto; }
+@media (prefers-reduced-motion: reduce) { .tour-spot, .tour-tip { transition: none; } }
+
+.toast {
+  position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+  background: var(--sand); color: var(--navy); font-weight: 700; font-size: 15px;
+  padding: 12px 20px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: opacity 0.25s, transform 0.25s; z-index: 20; max-width: calc(100% - 32px); text-align: center;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* Tarjetas blancas con contorno dorado */
+.reto, .score, .opt, .confirm {
+  background: var(--card); border: 1.5px solid var(--gold); color: var(--ink);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+.reto.open { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.35), 0 10px 28px rgba(0, 0, 0, 0.28); }
+.reto-name { color: var(--card-title); }
+.reto-status { color: var(--card-muted); }
+.reto.done .reto-status, .reto.next:not(.done) .reto-status { color: var(--card-gold); font-weight: 700; }
+.reto-num, .reto.done .reto-num {
+  width: 40px; height: auto; border: 0; border-radius: 0; background: none;
+  font-size: 30px; line-height: 1; color: var(--gold);
+  text-shadow: 0 2px 3px rgba(11, 30, 61, 0.35), 0 1px 0 rgba(138, 106, 18, 0.6);
+}
+.reto.done .reto-num svg { width: 28px; height: 28px; filter: drop-shadow(0 2px 2px rgba(11, 30, 61, 0.35)); }
+.chev { color: var(--card-muted); }
+.reto.open .chev { color: var(--card-gold); }
+.idea { color: var(--ink); opacity: 1; border-left-color: var(--gold); }
+.step-label { color: var(--card-title); }
+.step p { color: var(--ink); }
+.reflect { border-top-color: var(--card-line); }
+.reflect label { color: var(--card-title); }
+.saved { color: var(--card-muted); }
+.reto .input, .score .input, .confirm .input { border-color: var(--card-field-border); box-shadow: none; }
+.reto .input:focus, .score .input:focus { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.3); }
+.reto .btn-ghost, .confirm .btn-ghost { color: var(--card-gold); border-color: var(--gold); }
+.confirm .btn-quiet { color: var(--card-muted); }
+.confirm p { color: var(--ink); }
+.score { background: var(--card); }
+.score-head h2 { color: var(--card-title); }
+.score-head p { color: var(--card-muted); }
+.day label, .goal { color: var(--card-title); }
+.score-line strong { color: var(--card-title); }
+.score-line span { color: var(--card-muted); }
+.score .meter { background: #efe8d3; }
+.opt { color: var(--ink); }
+.opt:hover { border-color: var(--gold); background: #fffdf6; }
+.opt-mark { border-color: var(--gold); }
+.opt[aria-checked="true"] { background: #fbf4dd; border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold), 0 8px 24px rgba(0, 0, 0, 0.22); }
+
+@media (max-width: 420px) {
+  .ring { width: 92px; height: 92px; }
+  .ring-num { font-size: 26px; }
+  .reto-head { gap: 12px; padding: 14px 14px; }
+  .reto-body { padding: 0 14px 16px; }
+  .days { gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<section class="wrap intake" id="intake" hidden aria-live="polite"></section>
+
+<div id="app" hidden>
+<div class="wrap">
+  <header class="hero">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">AV</span><span>Alejandro Valencia Coach</span></div>
+    <div class="hero-main">
+      <div>
+        <h1>Enfócate<span class="line" aria-hidden="true"></span></h1>
+      </div>
+      <div class="ring" role="img" aria-label="Progreso">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="track" cx="60" cy="60" r="52" fill="none" stroke-width="7"></circle>
+          <circle class="bar" id="ringBar" cx="60" cy="60" r="52" fill="none" stroke-width="7" stroke-linecap="round"></circle>
+        </svg>
+        <div class="ring-label"><div class="ring-num" id="ringNum">0/20</div><div class="ring-sub">retos hechos</div></div>
+      </div>
+    </div>
+    <p class="hero-lead">20 retos en <strong>4 semanas</strong> para recuperar tu capacidad de concentrarte en lo que de verdad mueve tu negocio. Basados en <em>Enfócate</em>, de Cal Newport. Haz uno por día, en orden.</p>
+    <div class="hello"><span class="hello-name" id="helloName"></span><button class="btn btn-ghost guide-btn" id="openGuide" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.4"></path><path d="M12 17h.01"></path></svg>Cómo funciona</button><button class="link-btn" id="editIntake" type="button">Editar mis respuestas iniciales</button></div>
+  </header>
+</div>
+
+<nav class="tabs-bar" aria-label="Semanas">
+  <div class="wrap"><div class="tabs" role="tablist" id="tabs"></div></div>
+</nav>
+
+<main class="wrap">
+  <section class="week" id="week" role="tabpanel" aria-live="polite"></section>
+
+  <section class="score" aria-labelledby="scoreTitle">
+    <div class="score-head">
+      <div>
+        <h2 id="scoreTitle">Tu marcador</h2>
+        <p id="scoreSub">Horas de trabajo profundo de la semana 1. Anota cada noche cuántas horas trabajaste con concentración total.</p>
+      </div>
+    </div>
+    <div class="days" id="days"></div>
+    <div class="score-total">
+      <div class="score-line"><strong id="weekTotal">0 h</strong><span id="goalText">de 10 h de meta</span></div>
+      <div class="meter" aria-hidden="true"><i id="meterBar"></i></div>
+    </div>
+    <div class="goal"><label for="goalInput">Meta semanal en horas</label><input class="input" id="goalInput" type="number" inputmode="decimal" min="1" max="60" step="1" value="10"></div>
+    <p class="goal-help">¿Por qué 10 horas? Son unas 2 horas diarias de lunes a viernes. Newport explica que quien empieza aguanta cerca de una hora al día de concentración total, y que incluso los expertos rara vez pasan de cuatro. Empieza con una meta que puedas cumplir y súbela poco a poco.</p>
+  </section>
+
+  <section class="share" aria-labelledby="shareTitle">
+    <h2 id="shareTitle">Comparte tu avance</h2>
+    <p>Alejandro recibe tu avance automáticamente. Si quieres, también puedes copiar el resumen y pegarlo en el chat con él antes de tu sesión.</p>
+    <div class="actions">
+      <button class="btn btn-gold" id="copyBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg>
+        Copiar mi avance
+      </button>
+      <button class="btn btn-quiet" id="resetBtn" type="button">Empezar de cero</button>
+    </div>
+    <textarea class="input" id="copyFallback" readonly hidden aria-label="Resumen para copiar"></textarea>
+    <div class="confirm" id="confirmBox" hidden>
+      <p>Se borrarán tus retos marcados, reflexiones y horas de este dispositivo. ¿Quieres empezar de cero?</p>
+      <div class="actions">
+        <button class="btn btn-ghost" id="confirmYes" type="button">Sí, borrar todo</button>
+        <button class="btn btn-quiet" id="confirmNo" type="button">Cancelar</button>
+      </div>
+    </div>
+    <p style="font-size:14px">Tu avance se guarda en este celular y navegador, y se envía de forma privada a Alejandro. Usa siempre el mismo dispositivo.</p>
+  </section>
+</main>
+</div>
+
+<footer class="wrap">
+  <p class="slogan">No limites tus desafíos, desafía tus límites.</p>
+  <p class="credit">Alejandro Valencia Coach · alejandrovalenciacorp.com</p>
+</footer>
+
+<div class="tour" id="tour" hidden>
+  <div class="tour-block" aria-hidden="true"></div>
+  <div class="tour-spot" id="tourSpot" aria-hidden="true"></div>
+  <div class="tour-tip" id="tourTip" role="dialog" aria-modal="true" aria-labelledby="tourTitle" aria-describedby="tourText">
+    <div class="tour-head"><span class="tour-count" id="tourCount"></span><button class="tour-skip" id="tourSkip" type="button">Saltar</button></div>
+    <h2 class="tour-title" id="tourTitle"></h2>
+    <p class="tour-text" id="tourText"></p>
+    <div class="tour-nav"><button class="btn btn-quiet" id="tourBack" type="button">Atrás</button><button class="btn btn-gold" id="tourNext" type="button">Siguiente</button></div>
+  </div>
+</div>
+<div class="cheer" id="cheer" hidden role="dialog" aria-modal="true" aria-labelledby="cheerTitle"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var WEEKS = [
+    { title: "Diagnóstico", intro: "Antes de cambiar, mide. Esta semana descubres a dónde se va tu atención y cuánto trabajo profundo haces de verdad." },
+    { title: "Rituales", intro: "Convierte la concentración en hábito para no depender de la fuerza de voluntad." },
+    { title: "Entrena tu foco", intro: "Concentrarse es una habilidad que se entrena o se pierde. Esta semana la entrenas dentro y fuera de la oficina." },
+    { title: "Tu sistema", intro: "Mide, revisa y protege tus horas profundas para que el cambio se quede contigo." }
+  ];
+
+  var RETOS = [
+    { t: "Audita tu última semana",
+      i: "Newport separa el trabajo profundo, que exige toda tu mente y crea valor difícil de copiar, del superficial, que es logístico y se hace distraído. Lo superficial es necesario; el problema es cuánto espacio ocupa.",
+      a: "Abre tu agenda de los últimos 7 días. Marca cada bloque con P (profundo) o S (superficial) y suma las horas de cada tipo.",
+      l: "Tienes tu porcentaje real de trabajo profundo.",
+      q: "¿Qué te sorprendió del resultado y qué bloque superficial te costó más reconocer?" },
+    { t: "La prueba del recién graduado",
+      i: "Para saber si una tarea es profunda, pregúntate cuántos meses tardarías en entrenar a un recién graduado inteligente para hacerla. Si es poco tiempo, es superficial.",
+      a: "Lista 10 tareas que haces cada semana y escribe al lado cuántos meses de entrenamiento requeriría cada una. Marca las que tomarían menos de 3 meses.",
+      l: "Tienes una lista de tareas para delegar, automatizar o eliminar.",
+      q: "¿Cuál de esas tareas sigues haciendo tú por costumbre o por control, y no porque solo tú puedas hacerla?" },
+    { t: "Cuenta tus interrupciones",
+      i: "Cuando cambias de tarea, parte de tu atención se queda en la anterior. Newport lo llama residuo de atención: hasta un vistazo de diez segundos al celular te deja trabajando a media capacidad.",
+      a: "Durante dos horas de trabajo, haz una raya en un papel cada vez que revises el celular, el correo o un chat.",
+      l: "Tienes un número. Ese número es tu punto de partida.",
+      q: "¿Qué sentías justo antes de cada revisión: aburrimiento, ansiedad o una parte difícil de la tarea?" },
+    { t: "Define tu presupuesto de superficial",
+      i: "Newport propone decidir de antemano qué porcentaje de tu tiempo es razonable para lo superficial. Para muchos cargos está entre 30 y 50 %. Con un número claro, decir que no se vuelve más fácil.",
+      a: "Escribe tu porcentaje máximo de trabajo superficial y compáralo con lo que mediste en el reto 1.",
+      l: "Sabes cuántas horas de superficial tienes que recortar cada semana.",
+      q: "¿Qué compromiso tendrías que soltar o renegociar para cumplir tu presupuesto?" },
+    { t: "Nombra tu habilidad clave",
+      i: "La economía premia a quienes aprenden rápido cosas difíciles y producen con calidad de élite. Las dos habilidades dependen del trabajo profundo.",
+      a: "Escribe la habilidad o el proyecto que más valor le daría a tu negocio en los próximos 12 meses, y cuántas horas a la semana le dedicas hoy con concentración total.",
+      l: "Tienes un objetivo claro para las próximas tres semanas.",
+      q: "Si esa habilidad es tan valiosa, ¿qué te ha impedido dedicarle tiempo protegido?" },
+
+    { t: "Elige tu forma de profundidad",
+      i: "Newport describe cuatro formas: monástica (eliminar casi todo lo superficial), bimodal (periodos largos de aislamiento), rítmica (un bloque fijo cada día) y periodística (aprovechar cualquier hueco). Newport señala que la rítmica es la que mejor funciona para quien tiene un trabajo con horario y compromisos diarios.",
+      a: "Elige una de las cuatro y define el horario exacto de tu bloque profundo para las próximas tres semanas.",
+      l: "Tu bloque está en el calendario como una reunión que no se mueve.",
+      q: "¿Por qué elegiste esa forma y no otra, según tu realidad de hoy?" },
+    { t: "Diseña tu ritual",
+      i: "La fuerza de voluntad se agota. Un ritual reduce la fricción para empezar: define dónde trabajas, cuánto tiempo, con qué reglas y qué necesitas para sostener el esfuerzo.",
+      a: "Escribe tu ritual respondiendo cuatro preguntas: dónde, cuánto tiempo, qué reglas (por ejemplo, celular en otra habitación) y qué te ayuda a sostenerlo (café, agua, una caminata antes).",
+      l: "Aplicaste tu ritual al menos tres días esta semana.",
+      q: "¿Qué parte del ritual te hizo más fácil empezar y cuál te costó cumplir?" },
+    { t: "Planifica cada hora",
+      i: "Sin un plan, tu día queda en manos de lo que llega. Newport divide la jornada en bloques escritos y, si surge un imprevisto, vuelve a planificar el resto del día.",
+      a: "Durante cinco días, antes de empezar, escribe en papel tus bloques del día con una tarea asignada a cada uno.",
+      l: "Planificaste cinco días seguidos, aunque hayas tenido que ajustar el plan.",
+      q: "¿Qué tareas subestimaste en tiempo y qué interrupción se repitió más?" },
+    { t: "Cierra tu jornada a una hora fija",
+      i: "El descanso recarga tu atención y deja que la mente resuelva problemas en segundo plano. Newport termina su día a una hora fija con un ritual: revisa pendientes, deja un plan para cada uno y dice una frase de cierre.",
+      a: "Elige tu hora de cierre y tu frase. Durante cinco días, haz el ritual y no vuelvas al trabajo esa noche.",
+      l: "Cinco noches sin revisar correos ni chats de trabajo.",
+      q: "¿Qué pasó con tu ansiedad las noches que cerraste bien? ¿Algo se rompió por no estar disponible?" },
+    { t: "Haz un gran gesto",
+      i: "A veces cambiar de lugar o hacer una inversión inusual le dice a tu mente que la tarea importa. Newport cuenta casos como las semanas de lectura aisladas de Bill Gates.",
+      a: "Reserva un bloque de 3 horas fuera de tu espacio habitual (un café, una biblioteca, un hotel) para avanzar en tu habilidad o proyecto clave.",
+      l: "Hiciste las 3 horas sin revisar mensajes.",
+      q: "¿Qué lograste en esas 3 horas que normalmente te tomaría una semana?" },
+
+    { t: "Abraza el aburrimiento",
+      i: "Si llenas cada espera con el celular, entrenas a tu cerebro para no tolerar la falta de estímulo. Newport propone decidir de antemano cuándo usar internet y no usarlo fuera de esos momentos.",
+      a: "Cada día de esta semana, pasa al menos una espera (una fila, un trayecto, una comida) sin sacar el celular.",
+      l: "Siete esperas sin celular.",
+      q: "¿Qué apareció en tu mente cuando no tenías nada que mirar?" },
+    { t: "El reto Roosevelt",
+      i: "Theodore Roosevelt tenía una vida llena de actividades y aun así rendía en Harvard porque estudiaba en bloques cortos de intensidad total.",
+      a: "Elige una tarea profunda, calcula cuánto te tomaría normalmente y date un plazo bastante más corto. Trabaja sin pausas hasta el plazo.",
+      l: "Terminaste la tarea, o avanzaste mucho más de lo normal, en el plazo que te pusiste.",
+      q: "¿Qué dejaste de hacer (perfeccionar, revisar, distraerte) para cumplir el plazo?" },
+    { t: "Piensa mientras caminas",
+      i: "Newport llama meditación productiva a usar una caminata o un trayecto para pensar a fondo en un solo problema. Cuando la mente se desvía, la regresas con paciencia.",
+      a: "En una caminata de 20 minutos, trabaja un problema concreto de tu negocio: identifica sus variables, define la siguiente pregunta y respóndela.",
+      l: "Volviste con una decisión o una idea escrita.",
+      q: "¿Cuántas veces se desvió tu mente y hacia dónde se fue?" },
+    { t: "Ocio con intención",
+      i: "El tiempo libre también entrena tu atención. Si lo llenas de navegación sin rumbo, debilitas tu capacidad de concentración. Newport propone planear el ocio con actividades de calidad.",
+      a: "Antes del fin de semana, escribe qué vas a hacer en tu tiempo libre: leer, hacer ejercicio, ver a alguien. Cúmplelo sin redes sociales de entretenimiento.",
+      l: "Un fin de semana con ocio planeado y sin scroll.",
+      q: "¿Cómo llegaste al lunes comparado con otros fines de semana?" },
+    { t: "Responde para cerrar",
+      i: "Los mensajes cortos generan más mensajes. Newport sugiere responder pensando en cerrar el asunto: proponer fechas, decidir el siguiente paso y dejar todo claro en un solo envío.",
+      a: "Durante una semana, cada mensaje en el que coordines algo debe incluir una propuesta concreta y el siguiente paso.",
+      l: "Bajaron las conversaciones de ida y vuelta.",
+      q: "¿Qué mensajes dejaste de recibir al ser más claro?" },
+
+    { t: "Escoge tu meta crucial",
+      i: "Newport adapta las 4 disciplinas de la ejecución. La primera es enfocarse en muy pocas metas ambiciosas: quien persigue muchas, no avanza en ninguna.",
+      a: "Escribe una sola meta para los próximos 90 días que dependa de tu trabajo profundo.",
+      l: "Tu meta cabe en una frase y tiene una fecha.",
+      q: "¿Qué metas tuviste que dejar en pausa para elegir esta?" },
+    { t: "Lleva tu marcador",
+      i: "El resultado final llega tarde; las horas de concentración se controlan cada día. Newport registra sus horas profundas en un marcador visible.",
+      a: "Registra cada noche de esta semana tus horas de trabajo profundo en el marcador de esta página.",
+      l: "Siete días registrados.",
+      q: "¿Qué días rendiste más y qué tenían en común?" },
+    { t: "Haz tu revisión semanal",
+      i: "La cuarta disciplina es rendir cuentas: una revisión semanal para ver qué funcionó, qué no y ajustar el plan.",
+      a: "Dedica 30 minutos a revisar tu semana: horas profundas, qué las bloqueó y qué cambias para la próxima.",
+      l: "Tienes tres ajustes escritos para la siguiente semana.",
+      q: "¿Qué patrón ves al comparar estas cuatro semanas?" },
+    { t: "Cambia la regla de tu equipo",
+      i: "Newport explica que, como nadie mide el costo de la distracción, el ajetreo se vuelve la prueba de que se trabaja. Cita un estudio de Leslie Perlow en Boston Consulting Group: cuando cada consultor tuvo un tiempo de desconexión fijo y acordado con el equipo, trabajaron y se comunicaron mejor.",
+      a: "Acuerda con tu equipo una regla de disponibilidad: horarios sin interrupciones, tiempo de respuesta esperado o un canal solo para lo urgente.",
+      l: "La regla está comunicada y tú fuiste el primero en cumplirla.",
+      q: "¿Qué te dijo tu equipo cuando propusiste la regla?" },
+    { t: "Empieza la prueba de 30 días",
+      i: "Newport propone dejar una red social durante 30 días sin anunciarlo. Al final te preguntas: ¿mis días habrían sido mejores con ella? ¿A alguien le importó que no estuviera?",
+      a: "Elige la red social que más tiempo te quita, desinstálala hoy sin avisar a nadie y agenda la fecha de evaluación dentro de 30 días.",
+      l: "La app está fuera de tu teléfono y la fecha de revisión está en tu calendario.",
+      q: "¿Qué esperas descubrir y qué te da miedo perder?" }
+  ];
+
+  var DAYS = ["L", "M", "X", "J", "V", "S", "D"];
+  var DAY_NAMES = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"];
+  var KEY = "avc-reto-enfocate-v1";
+
+  function blank() {
+    return { name: "", done: [], notes: {}, hours: [[], [], [], []], goal: 10, week: 0, open: null,
+      intake: { done: false, step: 0, nombre: "", contacto: "", situacion: "", dedica: "", equipo: "", dificultades: [], dificultadOtro: "", retoDificil: "", aprender: [], aprenderOtro: "" } };
+  }
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return blank();
+      var s = JSON.parse(raw), b = blank();
+      for (var k in b) if (!(k in s)) s[k] = b[k];
+      if (!Array.isArray(s.done)) s.done = [];
+      if (!Array.isArray(s.hours) || s.hours.length !== 4) s.hours = b.hours;
+      if (!s.intake || typeof s.intake !== "object") s.intake = b.intake;
+      for (var ik in b.intake) if (!(ik in s.intake)) s.intake[ik] = b.intake[ik];
+      return s;
+    } catch (e) { return blank(); }
+  }
+  var state = load();
+  var saveTimer = null;
+  function genId() {
+    try { if (window.crypto && crypto.randomUUID) return crypto.randomUUID(); } catch (e) {}
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0; return (c === "x" ? r : (r & 3 | 8)).toString(16); });
+  }
+  if (!state.pid) state.pid = genId();
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* sin almacenamiento: la página sigue funcionando */ }
+    scheduleSync();
+  }
+
+  /* Envío privado a Alejandro */
+  var syncTimer = null, syncing = false, syncAgain = false, lastSent = "";
+  function syncBody() {
+    return JSON.stringify({ id: state.pid, data: { intake: state.intake, done: state.done, notes: state.notes, hours: state.hours, goal: state.goal, createdAt: state.createdAt || null } });
+  }
+  function scheduleSync() {
+    if (!state.intake || !state.intake.consent) return;
+    clearTimeout(syncTimer); syncTimer = setTimeout(doSync, 1500);
+  }
+  function doSync() {
+    syncTimer = null;
+    if (!state.intake || !state.intake.consent) return;
+    var body = syncBody(); if (body === lastSent) return;
+    if (syncing) { syncAgain = true; return; }
+    syncing = true;
+    fetch("/api/save", { method: "POST", headers: { "Content-Type": "application/json" }, body: body, keepalive: body.length < 60000 })
+      .then(function (r) { if (r.ok) lastSent = body; else throw new Error("save " + r.status); })
+      .catch(function () { setTimeout(scheduleSync, 15000); })
+      .then(function () { syncing = false; if (syncAgain) { syncAgain = false; doSync(); } });
+  }
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState !== "hidden" || !state.intake || !state.intake.consent) return;
+    var body = syncBody(); if (body === lastSent) return;
+    clearTimeout(syncTimer); syncTimer = null;
+    try { if (navigator.sendBeacon && navigator.sendBeacon("/api/save", new Blob([body], { type: "application/json" }))) lastSent = body; } catch (e) {}
+  });
+
+  var $ = function (id) { return document.getElementById(id); };
+  function isDone(i) { return state.done.indexOf(i) !== -1; }
+  function nextIndex() { for (var i = 0; i < RETOS.length; i++) if (!isDone(i)) return i; return -1; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  var toastTimer;
+  function toast(msg) {
+    var t = $("toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.classList.remove("show"); }, 2400);
+  }
+
+  /* Progreso */
+  var C = 2 * Math.PI * 52;
+  function renderProgress() {
+    var n = state.done.length;
+    $("ringNum").textContent = n + "/20";
+    var bar = $("ringBar");
+    bar.style.strokeDasharray = C;
+    bar.style.strokeDashoffset = C * (1 - n / 20);
+    document.querySelector(".ring").setAttribute("aria-label", n + " de 20 retos hechos");
+  }
+
+  /* Pestañas */
+  function renderTabs() {
+    var html = "";
+    for (var w = 0; w < 4; w++) {
+      var c = 0, dots = "";
+      for (var j = 0; j < 5; j++) { var on = isDone(w * 5 + j); if (on) c++; dots += '<i class="' + (on ? "on" : "") + '"></i>'; }
+      html += '<button class="tab" role="tab" type="button" id="tab' + w + '" aria-controls="week" aria-selected="' + (state.week === w) + '" data-w="' + w + '">' +
+        '<span class="tab-name">Semana ' + (w + 1) + '</span><span class="tab-count">' + c + ' de 5</span><span class="tab-dots" aria-hidden="true">' + dots + '</span></button>';
+    }
+    $("tabs").innerHTML = html;
+  }
+
+  var CHEV = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>';
+  var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>';
+
+  function statusText(i) {
+    if (isDone(i)) return "Hecho";
+    if (i === nextIndex()) return "Tu siguiente reto";
+    return "Pendiente";
+  }
+
+  function renderWeek() {
+    var w = state.week, wk = WEEKS[w], nx = nextIndex();
+    var html = '<div class="week-head"><p class="week-kicker">Semana ' + (w + 1) + ' de 4</p><h2>' + wk.title + '</h2><p>' + wk.intro + '</p></div><ol class="list">';
+    for (var j = 0; j < 5; j++) {
+      var i = w * 5 + j, r = RETOS[i], d = isDone(i), open = state.open === i;
+      html += '<li class="reto' + (d ? " done" : "") + (open ? " open" : "") + (i === nx ? " next" : "") + '" id="reto' + i + '">' +
+        '<button class="reto-head" type="button" aria-expanded="' + open + '" aria-controls="body' + i + '" data-toggle="' + i + '">' +
+          '<span class="reto-num" aria-hidden="true">' + (d ? CHECK.replace("<svg", '<svg width="18" height="18"') : (i + 1)) + '</span>' +
+          '<span class="reto-title"><span class="reto-name">' + r.t + '</span><span class="reto-status">Reto ' + (i + 1) + ' · ' + statusText(i) + '</span></span>' + CHEV +
+        '</button>' +
+        '<div class="reto-body" id="body' + i + '"' + (open ? "" : " hidden") + '>' +
+          '<p class="idea">' + r.i + '</p>' +
+          '<div class="steps">' +
+            '<div class="step"><span class="step-label">Tu reto</span><p>' + r.a + '</p></div>' +
+            '<div class="step"><span class="step-label">Lo lograste cuando</span><p>' + r.l + '</p></div>' +
+          '</div>' +
+          '<div class="reflect"><span class="step-label">Tu reflexión</span><label for="note' + i + '">' + r.q + '</label>' +
+            '<textarea class="input" id="note' + i + '" data-note="' + i + '" placeholder="Escribe tu reflexión">' + esc(state.notes[i] || "") + '</textarea>' +
+            '<span class="saved" id="saved' + i + '" aria-live="polite"></span></div>' +
+          '<div class="actions">' +
+            (d ? '<button class="btn btn-ghost" type="button" data-done="' + i + '">Marcar como pendiente</button>'
+               : '<button class="btn btn-gold" type="button" data-done="' + i + '">' + CHECK + 'Marcar como hecho</button>') +
+          '</div>' +
+        '</div></li>';
+    }
+    html += "</ol>";
+    $("week").innerHTML = html;
+    $("week").setAttribute("aria-labelledby", "tab" + w);
+  }
+
+  /* Marcador */
+  function weekHours(w) {
+    var t = 0, h = state.hours[w] || [];
+    for (var d = 0; d < 7; d++) { var v = parseFloat(h[d]); if (!isNaN(v)) t += v; }
+    return Math.round(t * 10) / 10;
+  }
+  function fmt(n) { return String(n).replace(".", ","); }
+  function renderDays() {
+    var w = state.week, h = state.hours[w] || [], html = "";
+    for (var d = 0; d < 7; d++) {
+      var v = h[d] === undefined || h[d] === null ? "" : h[d];
+      html += '<div class="day"><label for="h' + d + '" aria-hidden="true">' + DAYS[d] + '</label>' +
+        '<input class="input" aria-label="Horas del ' + DAY_NAMES[d] + '" id="h' + d + '" data-day="' + d + '" type="number" inputmode="decimal" min="0" max="16" step="0.5" placeholder="0" value="' + v + '"></div>';
+    }
+    $("days").innerHTML = html;
+    $("scoreSub").textContent = "Horas de trabajo profundo de la semana " + (w + 1) + ". Anota cada noche cuántas horas trabajaste con concentración total.";
+    renderTotal();
+  }
+  function renderTotal() {
+    var total = weekHours(state.week), goal = Math.max(1, parseFloat(state.goal) || 10);
+    $("weekTotal").textContent = fmt(total) + " h";
+    $("goalText").textContent = total >= goal ? "Meta de " + fmt(goal) + " h cumplida" : "de " + fmt(goal) + " h de meta";
+    $("meterBar").style.width = Math.min(100, (total / goal) * 100) + "%";
+  }
+
+  function renderAll() { renderProgress(); renderTabs(); renderWeek(); renderDays(); }
+
+  /* Eventos */
+  /* Cuestionario inicial */
+  var SITUACIONES = ["Tengo mi propio negocio", "Lidero un área en una empresa", "Trabajo de forma independiente", "Estoy arrancando un proyecto"];
+  var EQUIPOS = ["No tengo equipo", "1 a 5 personas", "6 a 20 personas", "Más de 20 personas"];
+  var DIFICULTADES = ["El celular y las redes", "Interrupciones de mi equipo", "Correos y chats todo el día", "Demasiadas reuniones", "Todo me parece urgente", "No sé por dónde empezar", "Termino el día cansado y sin avanzar", "Me cuesta delegar"];
+  var APRENDER = ["Delegar sin perder el control", "Priorizar lo importante", "Comunicarme mejor con mi equipo", "Dar retroalimentación", "Construir un equipo autónomo", "Tomar decisiones con más claridad", "Liderarme a mí mismo", "Manejar la presión y el estrés"];
+  var TICK = '<span class="opt-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>';
+
+  var STEPS = [
+    { kind: "welcome" },
+    { title: "¿Cómo te llamas?", help: "Así te reconozco cuando revise tu avance.",
+      fields: [{ key: "nombre", label: "Tu nombre", type: "text", auto: "name", req: true }, { key: "contacto", label: "Tu WhatsApp (opcional)", type: "tel", auto: "tel" }] },
+    { title: "¿Cuál es tu situación hoy?", key: "situacion", single: SITUACIONES, req: true },
+    { title: "¿A qué se dedica tu negocio o tu trabajo?", help: "En una o dos líneas.", fields: [{ key: "dedica", label: "Tu respuesta", type: "area", req: true }] },
+    { title: "¿Tienes equipo a cargo?", key: "equipo", single: EQUIPOS, req: true },
+    { title: "¿Qué es lo que más se te dificulta hoy para enfocarte?", help: "Elige todas las que apliquen.", key: "dificultades", multi: DIFICULTADES, other: "dificultadOtro", req: true },
+    { title: "¿Qué crees que se te va a dificultar más de este reto?", help: "Sé honesto. Solo lo lee Alejandro.", fields: [{ key: "retoDificil", label: "Tu respuesta", type: "area", req: true }] },
+    { title: "¿Qué te gustaría aprender sobre liderazgo?", help: "Elige todas las que apliquen.", key: "aprender", multi: APRENDER, other: "aprenderOtro", req: true }
+  ];
+  var QCOUNT = STEPS.length - 1;
+
+  function stepValid(st) {
+    var I = state.intake;
+    if (st.kind === "welcome") return !!I.consent;
+    if (st.fields) { for (var f = 0; f < st.fields.length; f++) if (st.fields[f].req && !String(I[st.fields[f].key] || "").trim()) return false; return true; }
+    if (st.single) return !!I[st.key];
+    if (st.multi) return I[st.key].length > 0 || !!String(I[st.other] || "").trim();
+    return true;
+  }
+
+  function renderIntake(focusFirst) {
+    var I = state.intake, n = Math.min(Math.max(I.step, 0), STEPS.length - 1), st = STEPS[n], html = "";
+    if (st.kind === "welcome") {
+      html = '<div class="brand"><span class="brand-mark" aria-hidden="true">AV</span><span>Alejandro Valencia Coach</span></div>' +
+        '<div class="q"><h1 class="welcome-title" tabindex="-1" id="qTitle">Enfócate</h1>' +
+        '<p class="hero-lead">Durante <strong>4 semanas</strong> vas a hacer 20 retos basados en el libro de Cal Newport para recuperar tu capacidad de concentrarte en lo importante.</p>' +
+        '<p class="q-help">Antes de empezar, cuéntame un poco de ti:</p>' +
+        '<ul class="welcome-list"><li>7 preguntas cortas</li><li>Toma unos 3 minutos</li><li>Con tus respuestas adapto el acompañamiento a tu realidad</li><li>Usa siempre el mismo celular y navegador: ahí se guarda tu avance</li></ul></div>' +
+        '<label class="consent" for="consentChk"><input type="checkbox" id="consentChk"' + (I.consent ? " checked" : "") + '><span>Autorizo a Alejandro Valencia (Alejandro Valencia Coach) a tratar mis datos personales para acompañarme en este reto, según la Ley 1581 de 2012.</span></label>' +
+        '<details class="consent-more"><summary>Leer la autorización completa</summary><div>' +
+          '<p><b>Responsable:</b> Alejandro Valencia, Alejandro Valencia Coach (AVC). Contacto: coach.alejandrovalencia@gmail.com.</p>' +
+          '<p><b>Datos que se recogen:</b> tu nombre, tu WhatsApp (opcional), tus respuestas del cuestionario, tus reflexiones, los retos que completas y las horas que registras. No se piden datos sensibles.</p>' +
+          '<p><b>Para qué se usan:</b> acompañarte durante el reto, preparar tus sesiones, entender las necesidades de liderazgo de los participantes para mejorar los programas de AVC, y contactarte por WhatsApp sobre el reto y los servicios de AVC.</p>' +
+          '<p><b>Quién los ve:</b> solo Alejandro Valencia. Se guardan de forma privada en los servidores de Vercel, el proveedor de alojamiento de esta página, que pueden estar fuera de Colombia.</p>' +
+          '<p><b>Tus derechos:</b> conocer, actualizar, rectificar y suprimir tus datos, pedir prueba de esta autorización, revocarla y presentar quejas ante la Superintendencia de Industria y Comercio. Para ejercerlos, escribe a coach.alejandrovalencia@gmail.com.</p>' +
+        '</div></details>' +
+        '<p class="q-error" id="qError" role="alert"></p>' +
+        '<div class="q-nav"><button class="btn btn-gold" type="button" data-next>Empezar</button></div>';
+    } else {
+      html = '<div class="intake-top"><div class="brand"><span class="brand-mark" aria-hidden="true">AV</span><span>Alejandro Valencia Coach</span></div>' +
+        '<div class="intake-progress"><span>Pregunta ' + n + ' de ' + QCOUNT + '</span><div class="meter" aria-hidden="true"><i style="width:' + (n / QCOUNT * 100) + '%"></i></div></div></div>' +
+        '<div class="q"><h1 class="q-title" tabindex="-1" id="qTitle">' + st.title + '</h1>' + (st.help ? '<p class="q-help">' + st.help + '</p>' : "");
+      if (st.fields) {
+        st.fields.forEach(function (f) {
+          var v = esc(I[f.key] || "");
+          html += '<div class="field"><label for="f_' + f.key + '">' + f.label + '</label>' +
+            (f.type === "area" ? '<textarea class="input" id="f_' + f.key + '" data-field="' + f.key + '" placeholder="Escribe aquí">' + v + '</textarea>'
+                               : '<input class="input" id="f_' + f.key + '" data-field="' + f.key + '" type="' + f.type + '" autocomplete="' + f.auto + '" value="' + v + '">') + '</div>';
+        });
+      } else {
+        var list = st.single || st.multi, role = st.single ? "radio" : "checkbox";
+        html += '<div class="options" role="' + (st.single ? "radiogroup" : "group") + '" aria-labelledby="qTitle">';
+        list.forEach(function (o, k) {
+          var on = st.single ? I[st.key] === o : I[st.key].indexOf(o) !== -1;
+          html += '<button class="opt" type="button" role="' + role + '" aria-checked="' + on + '" data-opt="' + k + '">' + TICK + '<span>' + o + '</span></button>';
+        });
+        html += '</div>';
+        if (st.other) html += '<div class="field"><label for="f_' + st.other + '">Otra (opcional)</label><input class="input" id="f_' + st.other + '" data-field="' + st.other + '" type="text" value="' + esc(I[st.other] || "") + '"></div>';
+      }
+      html += '</div><p class="q-error" id="qError" role="alert"></p>' +
+        '<div class="q-nav"><button class="btn btn-quiet" type="button" data-back>Atrás</button>' +
+        '<button class="btn btn-gold" type="button" data-next>' + (n === QCOUNT ? "Empezar los retos" : "Siguiente") + '</button></div>';
+    }
+    $("intake").innerHTML = html;
+    if (focusFirst) { var t = $("qTitle"); if (t) t.focus({ preventScroll: true }); window.scrollTo(0, 0); }
+  }
+
+  function showIntake(show) {
+    $("intake").hidden = !show; $("app").hidden = show;
+    if (show) renderIntake(true); else { renderHello(); renderAll(); }
+  }
+  function renderHello() {
+    var nm = (state.intake.nombre || "").trim();
+    $("helloName").textContent = nm ? "Hola, " + nm.split(/\s+/)[0] : "Hola";
+  }
+
+  $("intake").addEventListener("click", function (e) {
+    var I = state.intake, st = STEPS[I.step];
+    var opt = e.target.closest("[data-opt]");
+    if (opt) {
+      var val = (st.single || st.multi)[+opt.getAttribute("data-opt")];
+      if (st.single) I[st.key] = val;
+      else { var a = I[st.key], ix = a.indexOf(val); if (ix === -1) a.push(val); else a.splice(ix, 1); }
+      save();
+      if (st.single) { renderIntake(false); setTimeout(function () { if (I.step < QCOUNT && STEPS[I.step] === st) { I.step++; save(); renderIntake(true); } }, 220); }
+      else { opt.setAttribute("aria-checked", String(I[st.key].indexOf(val) !== -1)); $("qError").textContent = ""; }
+      return;
+    }
+    if (e.target.closest("[data-back]")) { I.step = Math.max(0, I.step - 1); save(); renderIntake(true); return; }
+    if (e.target.closest("[data-next]")) {
+      if (!stepValid(st)) { $("qError").textContent = st.kind === "welcome" ? "Para empezar, marca la casilla de autorización de datos." : st.multi ? "Elige al menos una opción para continuar." : (st.single ? "Elige una opción para continuar." : "Completa esta respuesta para continuar."); return; }
+      if (I.step >= QCOUNT) { I.done = true; state.name = I.nombre; save(); showIntake(false); if (!state.guideSeen) openGuide(0); else toast("Gracias. Ahora sí, empieza tu primer reto"); return; }
+      I.step++; save(); renderIntake(true);
+    }
+  });
+  $("intake").addEventListener("input", function (e) {
+    var f = e.target.closest("[data-field]"); if (!f) return;
+    state.intake[f.getAttribute("data-field")] = f.value;
+    if (f.getAttribute("data-field") === "nombre") state.name = f.value;
+    var er = $("qError"); if (er) er.textContent = "";
+    clearTimeout(saveTimer); saveTimer = setTimeout(save, 400);
+  });
+  $("intake").addEventListener("change", function (e) {
+    if (e.target.id !== "consentChk") return;
+    state.intake.consent = e.target.checked ? { at: new Date().toISOString(), v: "2026-11" } : null;
+    if (e.target.checked && !state.createdAt) state.createdAt = new Date().toISOString();
+    var er = $("qError"); if (er) er.textContent = "";
+    save();
+  });
+  $("intake").addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && e.target.matches("input[data-field]")) { e.preventDefault(); var nb = $("intake").querySelector("[data-next]"); if (nb) nb.click(); }
+  });
+  $("editIntake").addEventListener("click", function () { state.intake.step = 1; save(); showIntake(true); });
+  $("goalInput").value = state.goal;
+  $("goalInput").addEventListener("input", function (e) {
+    var v = parseFloat(e.target.value);
+    if (!isNaN(v) && v > 0) { state.goal = v; save(); renderTotal(); }
+  });
+
+  $("tabs").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-w]"); if (!b) return;
+    state.week = +b.getAttribute("data-w"); state.open = null; save();
+    renderTabs(); renderWeek(); renderDays();
+    document.getElementById("tab" + state.week).focus();
+  });
+  $("tabs").addEventListener("keydown", function (e) {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    e.preventDefault();
+    var w = (state.week + (e.key === "ArrowRight" ? 1 : 3)) % 4;
+    document.getElementById("tab" + w).click();
+  });
+
+  $("week").addEventListener("click", function (e) {
+    var tg = e.target.closest("[data-toggle]");
+    if (tg) {
+      var i = +tg.getAttribute("data-toggle");
+      state.open = state.open === i ? null : i; save(); renderWeek();
+      var head = document.querySelector('#reto' + i + ' .reto-head'); if (head) head.focus();
+      return;
+    }
+    var db = e.target.closest("[data-done]");
+    if (db) {
+      var k = +db.getAttribute("data-done"), was = isDone(k);
+      if (was) state.done.splice(state.done.indexOf(k), 1); else state.done.push(k);
+      state.done.sort(function (a, b) { return a - b; });
+      if (!was) {
+        var n = nextIndex();
+        state.open = (n !== -1 && Math.floor(n / 5) === state.week) ? n : null;
+        celebrate(k);
+      }
+      save(); renderProgress(); renderTabs(); renderWeek();
+      var target = document.querySelector("#reto" + (state.open !== null ? state.open : k) + " .reto-head");
+      if (target) { target.focus({ preventScroll: true }); target.scrollIntoView({ block: "nearest", behavior: "smooth" }); }
+    }
+  });
+  $("week").addEventListener("input", function (e) {
+    var ta = e.target.closest("[data-note]"); if (!ta) return;
+    var i = +ta.getAttribute("data-note");
+    state.notes[i] = ta.value;
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () { save(); var s = $("saved" + i); if (s) s.textContent = "Reflexión guardada"; }, 500);
+  });
+
+  $("days").addEventListener("input", function (e) {
+    var inp = e.target.closest("[data-day]"); if (!inp) return;
+    var d = +inp.getAttribute("data-day"), v = inp.value === "" ? null : Math.min(16, Math.max(0, parseFloat(inp.value)));
+    state.hours[state.week][d] = (v === null || isNaN(v)) ? null : v;
+    save(); renderTotal();
+  });
+
+  function summary() {
+    var lines = [];
+    var I = state.intake;
+    function joinOther(arr, other) { var a = arr.slice(); if ((other || "").trim()) a.push(other.trim()); return a.join(", ") || "Sin respuesta"; }
+    lines.push("Reto Enfócate · " + ((I.nombre || state.name || "").trim() || "Sin nombre"));
+    if ((I.contacto || "").trim()) lines.push("WhatsApp: " + I.contacto.trim());
+    lines.push("Avance: " + state.done.length + " de 20 retos");
+    lines.push("");
+    lines.push("Sobre mí");
+    lines.push("Situación: " + (I.situacion || "Sin respuesta"));
+    lines.push("A qué me dedico: " + ((I.dedica || "").trim() || "Sin respuesta"));
+    lines.push("Equipo: " + (I.equipo || "Sin respuesta"));
+    lines.push("Lo que más se me dificulta para enfocarme: " + joinOther(I.dificultades, I.dificultadOtro));
+    lines.push("Lo que creo que más me va a costar del reto: " + ((I.retoDificil || "").trim() || "Sin respuesta"));
+    lines.push("Quiero aprender sobre liderazgo: " + joinOther(I.aprender, I.aprenderOtro));
+    lines.push("");
+    for (var w = 0; w < 4; w++) {
+      lines.push("Semana " + (w + 1) + ": " + WEEKS[w].title + " · " + fmt(weekHours(w)) + " h de trabajo profundo");
+      for (var j = 0; j < 5; j++) {
+        var i = w * 5 + j;
+        lines.push((isDone(i) ? "[x] " : "[ ] ") + (i + 1) + ". " + RETOS[i].t);
+        var note = (state.notes[i] || "").trim();
+        if (note) lines.push("    Reflexión: " + note.replace(/\s*\n\s*/g, " "));
+      }
+      lines.push("");
+    }
+    return lines.join("\n").trim();
+  }
+  $("copyBtn").addEventListener("click", function () {
+    var text = summary(), fb = $("copyFallback");
+    function fallback() {
+      fb.value = text; fb.hidden = false; fb.focus(); fb.select();
+      toast("Selecciona el texto y cópialo");
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { fb.hidden = true; toast("Avance copiado. Pégalo en el chat con Alejandro"); }, fallback);
+      } else fallback();
+    } catch (e) { fallback(); }
+  });
+
+  $("resetBtn").addEventListener("click", function () { $("confirmBox").hidden = false; $("confirmNo").focus(); });
+  $("confirmNo").addEventListener("click", function () { $("confirmBox").hidden = true; $("resetBtn").focus(); });
+  $("confirmYes").addEventListener("click", function () {
+    var keepPid = state.pid, keepCreated = state.createdAt; state = blank(); state.pid = keepPid; state.createdAt = keepCreated; save();
+    $("goalInput").value = 10; $("copyFallback").hidden = true;
+    $("confirmBox").hidden = true; showIntake(true); toast("Listo, empiezas de cero");
+  });
+
+  /* Estímulos al completar retos y semanas */
+  var CHEERS = [
+    "Lo importante no es entenderlo, es decidirlo. Y hoy decidiste.",
+    "Un bloque protegido hoy es una decisión de liderazgo.",
+    "Menos ruido, más resultados. Vas por buen camino.",
+    "Constancia antes que intensidad. Mañana, el siguiente.",
+    "Hoy te lideraste a ti mismo. Así empieza todo lo demás.",
+    "Tu equipo nota cuando su líder está presente.",
+    "Cada reto cumplido es una promesa que te cumples.",
+    "La atención que recuperas hoy es tiempo que ganas mañana.",
+    "No limites tus desafíos, desafía tus límites."
+  ];
+  var WEEK_IDEAS = [
+    { q: "Lo que eres y lo que haces depende, en buena parte, de aquello a lo que decides prestar atención.", src: "Idea que Newport toma de la periodista Winifred Gallagher" },
+    { q: "Los grandes creadores no esperan las ganas: construyen rituales para no depender de ellas.", src: "Idea de Cal Newport en Enfócate" },
+    { q: "No hagas pausas de la distracción. Haz pausas de la concentración.", src: "Idea de Cal Newport en Enfócate" },
+    { q: "Una vida con profundidad es una vida bien vivida.", src: "Idea con la que Cal Newport cierra Enfócate" }
+  ];
+  var lastFocus = null, cheerTimer = null;
+  function weekComplete(w) { for (var j = 0; j < 5; j++) if (!isDone(w * 5 + j)) return false; return true; }
+  function sparks(card) {
+    if (reduceMotion) return;
+    for (var n = 0; n < 14; n++) {
+      var sp = document.createElement("i"), ang = (n / 14) * Math.PI * 2, dist = 70 + Math.random() * 50;
+      sp.className = "spark";
+      sp.style.setProperty("--dx", Math.round(Math.cos(ang) * dist) + "px");
+      sp.style.setProperty("--dy", Math.round(Math.sin(ang) * dist) + "px");
+      if (n % 3 === 0) sp.style.background = "var(--card-title)";
+      card.appendChild(sp);
+    }
+  }
+  function closeCheer(action) {
+    clearTimeout(cheerTimer);
+    var c = $("cheer"); if (c.hidden) return;
+    c.hidden = true; c.innerHTML = "";
+    if (action === "nextweek" && state.week < 3) {
+      state.week++; var n = nextIndex(); state.open = (n !== -1 && Math.floor(n / 5) === state.week) ? n : null; save();
+      renderTabs(); renderWeek(); renderDays();
+      $("week").scrollIntoView({ block: "start" }); window.scrollBy(0, -100);
+      var t = document.getElementById("tab" + state.week); if (t) t.focus({ preventScroll: true });
+    } else if (action === "summary") {
+      $("copyBtn").scrollIntoView({ block: "center" }); $("copyBtn").focus({ preventScroll: true });
+    } else if (lastFocus && document.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
+  }
+  function celebrate(k) {
+    var w = Math.floor(k / 5), html, c = $("cheer"), all = state.done.length === 20;
+    lastFocus = null;
+    if (weekComplete(w)) {
+      var idea = WEEK_IDEAS[w];
+      html = '<div class="cheer-card"><div class="cheer-big" aria-hidden="true">' + (w + 1) + '</div>' +
+        '<p class="cheer-kicker">' + (all ? "Completaste los 20 retos" : "Semana " + (w + 1) + " completada") + '</p>' +
+        '<h2 class="cheer-title" id="cheerTitle">' + (all ? "Terminaste el reto Enfócate" : WEEKS[w].title + ": hecho") + '</h2>' +
+        '<p class="cheer-quote">' + idea.q + '</p><p class="cheer-src">' + idea.src + '</p>' +
+        (all ? '<button class="btn btn-gold" type="button" data-cheer="summary">Compartir mi avance</button>'
+             : '<button class="btn btn-gold" type="button" data-cheer="nextweek">Empezar la semana ' + (w + 2) + '</button>') +
+        '<button class="btn btn-quiet" type="button" data-cheer="close" style="color:var(--card-muted)">Cerrar</button></div>';
+    } else {
+      html = '<div class="cheer-card"><div class="cheer-big" aria-hidden="true">' + CHECK + '</div>' +
+        '<p class="cheer-kicker">Reto ' + (k + 1) + ' de 20</p>' +
+        '<h2 class="cheer-title" id="cheerTitle">' + RETOS[k].t + ': hecho</h2>' +
+        '<p class="cheer-msg">' + CHEERS[k % CHEERS.length] + '</p>' +
+        '<button class="btn btn-gold" type="button" data-cheer="close">Seguir</button></div>';
+      cheerTimer = setTimeout(function () { closeCheer("close"); }, 6000);
+    }
+    c.removeAttribute("data-mode");
+    c.innerHTML = html; c.hidden = false;
+    sparks(c.querySelector(".cheer-card"));
+    var b = c.querySelector("[data-cheer]"); if (b) b.focus({ preventScroll: true });
+  }
+  $("cheer").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-cheer]");
+    if (b) { closeCheer(b.getAttribute("data-cheer")); return; }
+    if (e.target === $("cheer")) closeCheer("close");
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    if (!$("tour").hidden) { endTour(); return; }
+    if (!$("cheer").hidden) closeCheer("close");
+  });
+
+  /* Recorrido guiado: oscurece la pantalla e ilumina lo que se explica */
+  var tourIdx = 0, tourRetro = 0, tourRaf = 0;
+  function rq(sel) { return document.querySelector(sel.replace("{R}", "#reto" + tourRetro)); }
+  var TOUR = [
+    { sel: [".ring"], t: "Tu progreso", d: "Este círculo cuenta cuántos de los 20 retos llevas. Se llena a medida que avanzas." },
+    { sel: ["#tabs"], t: "Tus 4 semanas", d: "Cada semana tiene 5 retos, uno por día. Los puntos dorados son los que ya hiciste. Toca una semana para verla." },
+    { sel: ["{R} .reto-head"], open: true, t: "Cada reto", d: "Toca el reto para abrirlo o cerrarlo. El número dorado te dice en qué reto vas." },
+    { sel: ["{R} .idea"], open: true, t: "La idea del libro", d: "Léela primero. Es lo que plantea Newport y la razón de ser del reto." },
+    { sel: ["{R} .steps"], open: true, t: "Tu reto de hoy", d: "“Tu reto” es la acción concreta del día. “Lo lograste cuando” te dice cómo saber que cumpliste." },
+    { sel: ["{R} .reflect"], open: true, t: "Tu reflexión", d: "Escribe con honestidad lo que notaste. No hay respuestas correctas. Se guarda sola y la revisamos juntos en sesión." },
+    { sel: ["{R} [data-done]"], open: true, t: "Marcar como hecho", d: "Tócalo solo cuando cumplas lo que dice “Lo lograste cuando”. Verás un mensaje de ánimo. Al completar los 5 retos de la semana aparece una idea clave del libro y el botón para pasar a la siguiente." },
+    { sel: ["#days"], t: "Tu marcador diario", d: "Cada noche anota las horas que trabajaste con concentración total: sin celular, sin chats y sin interrupciones. Media hora se escribe 0.5." },
+    { sel: [".goal", ".goal-help"], t: "Tu meta semanal", d: "10 horas son unas 2 diarias de lunes a viernes. Si es mucho o poco para tu realidad, cámbiala y súbela poco a poco." },
+    { sel: ["#copyBtn"], t: "Tu avance le llega a Alejandro", d: "Lo que respondes y marcas se envía solo, de forma privada. Este botón copia un resumen por si también quieres pegarlo en el chat. Usa siempre este mismo celular y navegador: ahí se guarda tu avance." },
+    { sel: ["#openGuide"], t: "¿Quieres repetir este recorrido?", d: "Toca “Cómo funciona” cuando quieras volver a verlo." }
+  ];
+  function tourTargets() { return TOUR[tourIdx].sel.map(rq).filter(Boolean); }
+  function unionRect(els) {
+    var t = Infinity, l = Infinity, b = -Infinity, r = -Infinity;
+    els.forEach(function (el) { var x = el.getBoundingClientRect(); t = Math.min(t, x.top); l = Math.min(l, x.left); b = Math.max(b, x.bottom); r = Math.max(r, x.right); });
+    return { top: t, left: l, bottom: b, right: r, width: r - l, height: b - t };
+  }
+  function placeTour() {
+    var els = tourTargets(); if (!els.length) return;
+    var pad = 8, rc = unionRect(els), vw = document.documentElement.clientWidth, vh = window.innerHeight;
+    var spot = $("tourSpot"), tip = $("tourTip");
+    var top = rc.top - pad, left = Math.max(6, rc.left - pad), w = Math.min(vw - 12, rc.width + pad * 2), h = rc.height + pad * 2;
+    spot.style.top = top + "px"; spot.style.left = left + "px"; spot.style.width = w + "px"; spot.style.height = h + "px";
+    var th = tip.offsetHeight, gap = 14, y;
+    if (top + h + gap + th <= vh - 12) y = top + h + gap;
+    else if (top - gap - th >= 12) y = top - gap - th;
+    else y = Math.max(12, vh - th - 12);
+    tip.style.top = y + "px";
+  }
+  function onTourMove() { cancelAnimationFrame(tourRaf); tourRaf = requestAnimationFrame(placeTour); }
+  function showTourStep() {
+    var st = TOUR[tourIdx];
+    if (st.open && state.open !== tourRetro) { state.open = tourRetro; save(); renderWeek(); }
+    var els = tourTargets();
+    if (!els.length) { if (tourIdx < TOUR.length - 1) { tourIdx++; return showTourStep(); } return endTour(); }
+    $("tourCount").textContent = (tourIdx + 1) + " de " + TOUR.length;
+    $("tourTitle").textContent = st.t; $("tourText").textContent = st.d;
+    $("tourBack").hidden = tourIdx === 0; $("tourSkip").hidden = tourIdx === TOUR.length - 1;
+    $("tourNext").textContent = tourIdx === TOUR.length - 1 ? "Empezar mi primer reto" : "Siguiente";
+    var first = els[0], sticky = first.closest(".tabs-bar");
+    if (!sticky) {
+      var rc = unionRect(els), vh = window.innerHeight;
+      var want = rc.height > vh * 0.45 ? 110 : Math.max(110, (vh - rc.height) * 0.28);
+      window.scrollBy(0, rc.top - want);
+    }
+    placeTour();
+    setTimeout(placeTour, 60);
+    $("tourNext").focus({ preventScroll: true });
+  }
+  function startTour() {
+    clearTimeout(cheerTimer); $("cheer").hidden = true;
+    var nx = nextIndex();
+    tourRetro = (nx !== -1 && Math.floor(nx / 5) === state.week) ? nx : state.week * 5;
+    tourIdx = 0; $("tour").hidden = false; document.body.classList.add("touring");
+    window.addEventListener("scroll", onTourMove, { passive: true }); window.addEventListener("resize", onTourMove);
+    showTourStep();
+  }
+  function endTour() {
+    $("tour").hidden = true; document.body.classList.remove("touring");
+    window.removeEventListener("scroll", onTourMove); window.removeEventListener("resize", onTourMove);
+    state.guideSeen = true; save();
+    var head = document.querySelector("#reto" + tourRetro + " .reto-head");
+    if (head) { head.scrollIntoView({ block: "center" }); head.focus({ preventScroll: true }); }
+  }
+  var openGuide = startTour;
+  $("tourNext").addEventListener("click", function () { if (tourIdx >= TOUR.length - 1) endTour(); else { tourIdx++; showTourStep(); } });
+  $("tourBack").addEventListener("click", function () { if (tourIdx > 0) { tourIdx--; showTourStep(); } });
+  $("tourSkip").addEventListener("click", endTour);
+  $("openGuide").addEventListener("click", startTour);
+
+  /* Centrar la caja de texto activa cuando sube el teclado */
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function isField(el) { return el && el.matches && el.matches("input.input, textarea.input"); }
+  function centerField(el) {
+    if (!isField(el) || document.activeElement !== el) return;
+    try { el.scrollIntoView({ block: "start", behavior: "auto" }); } catch (e) { el.scrollIntoView(true); }
+  }
+  document.addEventListener("focusin", function (e) {
+    var el = e.target; if (!isField(el)) return;
+    [60, 300, 650, 1000].forEach(function (ms) { setTimeout(function () { centerField(el); }, ms); });
+  });
+  function onViewportChange() { centerField(document.activeElement); }
+  if (window.visualViewport) window.visualViewport.addEventListener("resize", onViewportChange);
+  window.addEventListener("resize", onViewportChange);
+
+  showIntake(!state.intake.done);
+  if (state.intake.done && !state.guideSeen) openGuide(0);
+})();
+</script>
+
+</body>
+</html>
